@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Rock Neurotiko">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <!-- Custom style blog (http://getbootstrap.com/examples/blog/) -->
+    <link href="/static/blog.css" rel="stylesheet">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!--<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">-->
+  </head>
+
+
+  <body>
+
+      <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">Rock's blog</a>
+          </div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li class="{{acthome}}"><a href="/">Home</a></li>
+              <li class="{{actblog}}"><a href="/blog">Blog</a></li>
+              <li class="{{actabout}}"><a href="/about">About</a></li>
+              <li class="{{actcontact}}"><a href="/contact">Contact</a></li>            
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              {% if user %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.username}}<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/user/{{user.id}}">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/signout">Sign Out</a></li>
+                  </ul>
+                </li>
+              {% else %}
+                <li><a href="/login">Login</a></li>
+              {% endif %}
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav><!-- Barra arribe -->
+  
+  <div class="container">
+
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+      {% for message in messages %}
+          <li>{{ message }} </li>
+      {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+
+     <div class="blog-header">
+        <h1 class="blog-title">The Rock's Blog!</h1>
+        <p class="lead blog-description">I hope you love it dude ;)</p>
+      </div>
+
+    <div class="row">
+
+      <div class="col-sm-8 blog-main">
+  
+        {% block content %}{% endblock %}
+  
+        <ul class="pager">
+            <li><a href="#">Previous</a></li>
+            <li><a href="#">Next</a></li>
+          </ul>
+        </div> <!-- Main blog -->
+  
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>Rellenar =D</p>
+          </div>
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">January 2014</a></li>
+              <li><a href="#">December 2013</a></li>
+              <li><a href="#">November 2013</a></li>
+            </ol>
+          </div>
+  
+          {% if tweets %}
+            <div class="sidebar-module sidebar-module-inset">
+              <h4><img src"/static/twitter_1.png" title="Twitter icon" class="li-img" />Tweets:)</h4>
+              {% for tweet in tweets %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title" style="font-size: 78%;">{{ tweet.updated|datetimeformat }}</h3>
+                  </div>
+                  <div class="panel-body">
+                    <p>{{tweet.excerpt|safe}}</p> <a href="{{tweet.url}}">[link]</a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+  
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="http://www.github.com/rockneurotiko">GitHub</a></li>
+              <li><a href="http://www.twitter.com/BinaryRock">Twitter</a></li>
+            </ol>
+          </div>
+      </div><!-- /.blog-sidebar -->
+
+    </div><!--/row-->
+    <hr>
+  
+  <footer>
+    <p>&copy; Rock Neurotiko 2014</p>
+    </footer>
+  </div><!--/container-->
+
+
+    <!--
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.js"></script>
+    <!--
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+  -->
+
+  </body>
+</html>

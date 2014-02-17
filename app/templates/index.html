@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% for git in gits %}
+	<div class="blog-post">
+		<h3 class="blog-post-title"><a href="{{git.url}}">New in repo: {{git.title}}</a></h3>
+	    <p class="blog-post-meta">{{ git.updated|datetimeformat }} by <a href="http://www.github.com/{{git.author}}">{{git.author}}</a></p>
+	    <p>{{ git.excerpt | safe }}</p>
+	</div><!-- /.blog-post -->
+{% endfor %}
+
+{% endblock %}

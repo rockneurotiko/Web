@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block blog %}
+<div class="blog">
+
+  <div class="blog-header">
+    <h1 class="blog-title">The Rock's Blog</h1>
+    <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm-8 blog-main">
+
+      {% for post in posts %}
+      <div class="blog-post">
+        <h2 class="blog-post-title">{{post.title}}</h2>
+        <p class="blog-post-meta">{{post.date}} by <a href="{{post.author.email}}">{{post.author.nickname}}</a></p>
+        <p>{{post.content}}</p>
+      </div><!-- /.blog-post -->
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
